@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.eventRoutes = void 0;
+const express_1 = require("express");
+const eventController_1 = require("../controllers/eventController");
+const requestValidation_1 = require("../middleware/requestValidation");
+const schemas_1 = require("../types/schemas");
+const asyncHandler_1 = require("../utils/asyncHandler");
+const eventRoutes = (0, express_1.Router)();
+exports.eventRoutes = eventRoutes;
+eventRoutes.get('/', (0, requestValidation_1.validateQuery)(schemas_1.eventQuerySchema), (0, asyncHandler_1.asyncHandler)(eventController_1.listEvents));
+eventRoutes.get('/:id', (0, requestValidation_1.validateParams)(schemas_1.eventParamsSchema), (0, asyncHandler_1.asyncHandler)(eventController_1.getEventById));
+eventRoutes.post('/', (0, requestValidation_1.validateBody)(schemas_1.createEventSchema), (0, asyncHandler_1.asyncHandler)(eventController_1.createEvent));
+eventRoutes.put('/:id', (0, requestValidation_1.validateParams)(schemas_1.eventParamsSchema), (0, requestValidation_1.validateBody)(schemas_1.updateEventSchema), (0, asyncHandler_1.asyncHandler)(eventController_1.updateEvent));
+eventRoutes.delete('/:id', (0, requestValidation_1.validateParams)(schemas_1.eventParamsSchema), (0, asyncHandler_1.asyncHandler)(eventController_1.deleteEvent));

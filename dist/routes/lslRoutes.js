@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.lslRoutes = void 0;
+const express_1 = require("express");
+const lslController_1 = require("../controllers/lslController");
+const requestValidation_1 = require("../middleware/requestValidation");
+const security_1 = require("../middleware/security");
+const schemas_1 = require("../types/schemas");
+const asyncHandler_1 = require("../utils/asyncHandler");
+const lslRoutes = (0, express_1.Router)();
+exports.lslRoutes = lslRoutes;
+lslRoutes.get('/events', security_1.lslRateLimiter, (0, requestValidation_1.validateQuery)(schemas_1.lslQuerySchema), (0, asyncHandler_1.asyncHandler)(lslController_1.listLslEvents));
